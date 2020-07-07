@@ -86,6 +86,14 @@ class CreateTransformerViewController: UIViewController,UITextFieldDelegate {
                 {
                 case .Success(let rst):
                     print("successful in create vc %@", rst)
+                    
+                    UserDefaults.standard.set(true, forKey: CONSTANT_REFRESH)
+                    DispatchQueue.main.async{
+                    self.resetToDefaultUIValues()
+                    let alert = UIAlertController(title: CONSTANT_ALERT_SUCCESS_TITLE_STRING, message: CONSTANT_ALERT_CREATE_SUCCESS_MESSAGE_STRING, preferredStyle: UIAlertController.Style.alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(alert, animated: false, completion: nil)
+                    }
                     break
                 case .Error(let e):
                     print("Error", e)
@@ -119,5 +127,30 @@ class CreateTransformerViewController: UIViewController,UITextFieldDelegate {
         return self.requestBodyDataModel!
     }
     
+    func resetToDefaultUIValues() {
+        self.transformerNameTextField.text = ""
+        let defaultSliderValue: Int = 5
+        //Int defaultSliderValue = 5
+        self.strengthSlider.value = Float(defaultSliderValue)
+        self.intelligenceSlider.value = Float(defaultSliderValue)
+        self.speedSlider.value = Float(defaultSliderValue)
+        self.enduranceSlider.value = Float(defaultSliderValue)
+        self.rankSlider.value = Float(defaultSliderValue)
+        self.courageSlider.value = Float(defaultSliderValue)
+        self.firepowerSlider.value = Float(defaultSliderValue)
+        self.skillSlider.value = Float(defaultSliderValue)
+        self.strengthLabel.text = "\(defaultSliderValue)"
+        self.intelligenceLabel.text = "\(defaultSliderValue)"
+        self.speedLabel.text = "\(defaultSliderValue)"
+        self.enduranceLabel.text = "\(defaultSliderValue)"
+        self.rankLabel.text = "\(defaultSliderValue)"
+        self.courageLabel.text = "\(defaultSliderValue)"
+        self.firepowerLabel.text = "\(defaultSliderValue)"
+        self.skillLabel.text = "\(defaultSliderValue)"
+    }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.transformerNameTextField.resignFirstResponder()
+        return true
+    }
 }

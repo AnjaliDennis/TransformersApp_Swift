@@ -47,6 +47,16 @@ class TransformerViewController: UIViewController,UICollectionViewDataSource,UIT
         // Do any additional setup after loading the view.
         getAuthenticationToken()
         self.transformerDataModelArray = NSMutableArray()
+        self.isCellEditing = false
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if (UserDefaults.standard.bool(forKey: CONSTANT_REFRESH)) {
+            UserDefaults.standard.set(false, forKey: CONSTANT_REFRESH)
+            refreshTransformerList([])
+        }
+        
     }
     
     // MARK: - UICollectionViewDataSource
@@ -107,6 +117,12 @@ class TransformerViewController: UIViewController,UICollectionViewDataSource,UIT
         
         return cell
     }
+    // MARK: - UITextFieldDelegate
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
     
     // MARK: - Web service call
     func getAuthenticationToken () {
@@ -115,7 +131,9 @@ class TransformerViewController: UIViewController,UICollectionViewDataSource,UIT
             {
             case .Success(let rst):
                 print("successful in vc %@", rst)
-                self.refreshTransformerList([])
+                if (UserDefaults.standard.bool(forKey: CONSTANT_REFRESH)) {
+                    self.refreshTransformerList([])
+                }
                 
             case .Error(let e):
                 print("Error", e)
@@ -132,9 +150,105 @@ class TransformerViewController: UIViewController,UICollectionViewDataSource,UIT
     }
     @objc func collectionViewCellEditButtonPressed(sender: UIButton){
         print("Edit button press")
+        self.currentIndexPath = IndexPath(row: sender.tag, section: 0)
+        let selectedCell: TransformerCollectionViewCell = self.autobotCollectionView.cellForItem(at: self.currentIndexPath!) as! TransformerCollectionViewCell
+        self.isCellEditing = !self.isCellEditing!
+        selectedCell.nameTextField.isUserInteractionEnabled = self.isCellEditing!
+        selectedCell.teamValueSegmentedControl.isUserInteractionEnabled = self.isCellEditing!
+        selectedCell.strengthSlider.isUserInteractionEnabled = self.isCellEditing!
+        selectedCell.intelligenceSlider.isUserInteractionEnabled = self.isCellEditing!
+        selectedCell.speedSlider.isUserInteractionEnabled = self.isCellEditing!
+        selectedCell.enduranceSlider.isUserInteractionEnabled = self.isCellEditing!
+        selectedCell.rankSlider.isUserInteractionEnabled = self.isCellEditing!
+        selectedCell.courageSlider.isUserInteractionEnabled = self.isCellEditing!
+        selectedCell.firepowerSlider.isUserInteractionEnabled = self.isCellEditing!
+        selectedCell.skillSlider.isUserInteractionEnabled = self.isCellEditing!
+        selectedCell.editTransformerButton.setTitle(((self.isCellEditing!) ? CONSTANT_SAVE_BUTTON : CONSTANT_EDIT_BUTTON_OK), for: .normal)
+        self.autobotCollectionView.isScrollEnabled = !self.isCellEditing!
+        if(!self.isCellEditing!) {
+            //changes are to be saved/updated
+            var uneditedTransformerDataModel = TransformerDataModel()
+            var updatedTransformerDataModel = TransformerDataModel()
+            uneditedTransformerDataModel = self.transformerDataModelArray.object(at: self.currentIndexPath!.row) as! TransformerDataModel
+            updatedTransformerDataModel.id = uneditedTransformerDataModel.id
+            updatedTransformerDataModel.name = selectedCell.nameTextField.text
+            updatedTransformerDataModel.strength = "\(Int(selectedCell.strengthSlider.value))"
+            updatedTransformerDataModel.intelligence = "\(Int(selectedCell.intelligenceSlider.value))"
+            updatedTransformerDataModel.speed = "\(Int(selectedCell.speedSlider.value))"
+            updatedTransformerDataModel.endurance = "\(Int(selectedCell.enduranceSlider.value))"
+            updatedTransformerDataModel.rank = "\(Int(selectedCell.rankSlider.value))"
+            updatedTransformerDataModel.courage = "\(Int(selectedCell.courageSlider.value))"
+            updatedTransformerDataModel.firepower = "\(Int(selectedCell.firepowerSlider.value))"
+            updatedTransformerDataModel.skill = "\(Int(selectedCell.skillSlider.value))"
+            updatedTransformerDataModel.team = (selectedCell.teamValueSegmentedControl.selectedSegmentIndex == 0) ? CONSTANT_TEAM_AUTOBOT_STRING : CONSTANT_TEAM_DECEPTICON_STRING
+            updatedTransformerDataModel.team_icon = ""
+            let overallRating = (updatedTransformerDataModel.strength! as NSString).integerValue + (updatedTransformerDataModel.intelligence! as NSString).integerValue + (updatedTransformerDataModel.speed! as NSString).integerValue + (updatedTransformerDataModel.endurance! as NSString).integerValue + (updatedTransformerDataModel.firepower! as NSString).integerValue
+            selectedCell.ratingValueLabel.text = "\(overallRating)"
+            updatedTransformerDataModel.rating = ""
+            
+            TransformerNetworkAPI().updateTransformer(updateRequestBody: updatedTransformerDataModel, completion: { (result:ResultType) in
+                switch result
+                {
+                case .Success(let rst):
+                    print("successful in updation- vc %@", rst)
+                    self.transformerDataModelArray.replaceObject(at: self.currentIndexPath!.row, with: rst as! TransformerDataModel)
+                    DispatchQueue.main.async{
+                        self.autobotCollectionView.reloadData()
+                        let alert = UIAlertController(title: CONSTANT_ALERT_SUCCESS_TITLE_STRING, message: CONSTANT_ALERT_UPDATE_SUCCESS_MESSAGE_STRING, preferredStyle: UIAlertController.Style.alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                        self.present(alert, animated: false, completion: nil)
+                    }
+                    break
+                case .Error(let e):
+                    print("Error", e)
+                    let alert = UIAlertController(title: "TransformerApp", message: e.localizedDescription, preferredStyle: UIAlertController.Style.alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(alert, animated: false, completion: nil)
+                }
+            })
+        }
     }
     @objc func sliderValueChange(sender: UISlider){
         print("Slider action")
+        let selectedCell: TransformerCollectionViewCell = self.autobotCollectionView.cellForItem(at: self.currentIndexPath!) as! TransformerCollectionViewCell
+         
+         switch (sender.tag) {
+             case 0:
+                selectedCell.strengthLabel.text = CONSTANT_STRENGTH_STRING+"\(Int(sender.value))"
+                 break;
+                 
+             case 1:
+                 selectedCell.intelligenceLabel.text = CONSTANT_INTELLIGENCE_STRING+"\(Int(sender.value))"
+                 break;
+                 
+             case 2:
+                 selectedCell.speedLabel.text = CONSTANT_SPEED_STRING+"\(Int(sender.value))"
+                 break;
+                 
+             case 3:
+                 selectedCell.enduranceLabel.text = CONSTANT_ENDURANCE_STRING+"\(Int(sender.value))"
+                 break;
+                 
+             case 4:
+                 selectedCell.rankLabel.text = CONSTANT_RANK_STRING+"\(Int(sender.value))"
+                 break;
+                 
+             case 5:
+                 selectedCell.courageLabel.text = CONSTANT_COURAGE_STRING+"\(Int(sender.value))"
+                 break;
+                 
+             case 6:
+                 selectedCell.firepowerLabel.text = CONSTANT_FIREPOWER_STRING+"\(Int(sender.value))"
+                 break;
+                 
+             case 7:
+                 selectedCell.skillLabel.text = CONSTANT_SKILL_STRING+"\(Int(sender.value))"
+                 break;
+                 
+             default:
+                 break;
+         }
+         
     }
     
     @IBAction func refreshTransformerList(_ sender: Any) {
