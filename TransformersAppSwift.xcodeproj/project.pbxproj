@@ -7,14 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E253DC624B49314003E72A1 /* CreateTransformerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E253DC524B49314003E72A1 /* CreateTransformerViewController.swift */; };
 		4E57436924B36A8300396792 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E57436824B36A8300396792 /* AppDelegate.swift */; };
 		4E57436B24B36A8300396792 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E57436A24B36A8300396792 /* SceneDelegate.swift */; };
-		4E57436D24B36A8300396792 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E57436C24B36A8300396792 /* ViewController.swift */; };
+		4E57436D24B36A8300396792 /* TransformerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E57436C24B36A8300396792 /* TransformerViewController.swift */; };
 		4E57437024B36A8300396792 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E57436E24B36A8300396792 /* Main.storyboard */; };
 		4E57437224B36A8600396792 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E57437124B36A8600396792 /* Assets.xcassets */; };
 		4E57437524B36A8600396792 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E57437324B36A8600396792 /* LaunchScreen.storyboard */; };
 		4E57438024B36A8600396792 /* TransformersAppSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E57437F24B36A8600396792 /* TransformersAppSwiftTests.swift */; };
 		4E57438B24B36A8600396792 /* TransformersAppSwiftUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E57438A24B36A8600396792 /* TransformersAppSwiftUITests.swift */; };
+		4E57439C24B36E8B00396792 /* TransformerDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E57439B24B36E8B00396792 /* TransformerDataModel.swift */; };
+		4E57439E24B3706D00396792 /* TransformerNetworkAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E57439D24B3706D00396792 /* TransformerNetworkAPI.swift */; };
+		4E5743A524B3715B00396792 /* TransformerConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5743A424B3715B00396792 /* TransformerConstants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,10 +39,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4E253DC524B49314003E72A1 /* CreateTransformerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTransformerViewController.swift; sourceTree = "<group>"; };
 		4E57436524B36A8300396792 /* TransformersAppSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TransformersAppSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E57436824B36A8300396792 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4E57436A24B36A8300396792 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		4E57436C24B36A8300396792 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		4E57436C24B36A8300396792 /* TransformerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformerViewController.swift; sourceTree = "<group>"; };
 		4E57436F24B36A8300396792 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4E57437124B36A8600396792 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4E57437424B36A8600396792 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -49,6 +54,9 @@
 		4E57438624B36A8600396792 /* TransformersAppSwiftUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TransformersAppSwiftUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E57438A24B36A8600396792 /* TransformersAppSwiftUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformersAppSwiftUITests.swift; sourceTree = "<group>"; };
 		4E57438C24B36A8600396792 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4E57439B24B36E8B00396792 /* TransformerDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformerDataModel.swift; sourceTree = "<group>"; };
+		4E57439D24B3706D00396792 /* TransformerNetworkAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformerNetworkAPI.swift; sourceTree = "<group>"; };
+		4E5743A424B3715B00396792 /* TransformerConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformerConstants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,9 +107,12 @@
 		4E57436724B36A8300396792 /* TransformersAppSwift */ = {
 			isa = PBXGroup;
 			children = (
+				4E5743A324B3714C00396792 /* Utility */,
+				4E57439A24B36B6700396792 /* Model Layer */,
+				4E57439924B36B5A00396792 /* PresentationLayer */,
+				4E57439824B36B4D00396792 /* Network Layer */,
 				4E57436824B36A8300396792 /* AppDelegate.swift */,
 				4E57436A24B36A8300396792 /* SceneDelegate.swift */,
-				4E57436C24B36A8300396792 /* ViewController.swift */,
 				4E57436E24B36A8300396792 /* Main.storyboard */,
 				4E57437124B36A8600396792 /* Assets.xcassets */,
 				4E57437324B36A8600396792 /* LaunchScreen.storyboard */,
@@ -126,6 +137,39 @@
 				4E57438C24B36A8600396792 /* Info.plist */,
 			);
 			path = TransformersAppSwiftUITests;
+			sourceTree = "<group>";
+		};
+		4E57439824B36B4D00396792 /* Network Layer */ = {
+			isa = PBXGroup;
+			children = (
+				4E57439D24B3706D00396792 /* TransformerNetworkAPI.swift */,
+			);
+			path = "Network Layer";
+			sourceTree = "<group>";
+		};
+		4E57439924B36B5A00396792 /* PresentationLayer */ = {
+			isa = PBXGroup;
+			children = (
+				4E57436C24B36A8300396792 /* TransformerViewController.swift */,
+				4E253DC524B49314003E72A1 /* CreateTransformerViewController.swift */,
+			);
+			path = PresentationLayer;
+			sourceTree = "<group>";
+		};
+		4E57439A24B36B6700396792 /* Model Layer */ = {
+			isa = PBXGroup;
+			children = (
+				4E57439B24B36E8B00396792 /* TransformerDataModel.swift */,
+			);
+			path = "Model Layer";
+			sourceTree = "<group>";
+		};
+		4E5743A324B3714C00396792 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				4E5743A424B3715B00396792 /* TransformerConstants.swift */,
+			);
+			path = Utility;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,9 +303,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4E57436D24B36A8300396792 /* ViewController.swift in Sources */,
+				4E253DC624B49314003E72A1 /* CreateTransformerViewController.swift in Sources */,
+				4E57436D24B36A8300396792 /* TransformerViewController.swift in Sources */,
 				4E57436924B36A8300396792 /* AppDelegate.swift in Sources */,
+				4E57439E24B3706D00396792 /* TransformerNetworkAPI.swift in Sources */,
 				4E57436B24B36A8300396792 /* SceneDelegate.swift in Sources */,
+				4E57439C24B36E8B00396792 /* TransformerDataModel.swift in Sources */,
+				4E5743A524B3715B00396792 /* TransformerConstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
