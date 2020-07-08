@@ -90,7 +90,7 @@ class TransformerViewController: UIViewController,UICollectionViewDataSource,UIT
         cell.ratingValueLabel.text = transformerDataModel.rating;
         let imageData = NSData(contentsOf: URL(string: transformerDataModel.team_icon!)!)
         cell.teamIconImagView.image = UIImage(data: imageData! as Data)
-        cell.backgroundColor = (transformerDataModel.team == CONSTANT_AUTOBOT_STRING) ?  UIColor.init(named: "AutobotColor") : UIColor.init(named: "DecepticonColor")
+        cell.backgroundColor = (transformerDataModel.team == CONSTANT_TEAM_AUTOBOT_STRING) ?  UIColor.init(named: "AutobotColor") : UIColor.init(named: "DecepticonColor")
         cell.deleteTransformerButton.tag = indexPath.row;
         cell.deleteTransformerButton.addTarget(self, action: #selector(collectionViewCellDeleteButtonPressed(sender:)), for: .touchUpInside)
         cell.editTransformerButton.tag = indexPath.row;
@@ -147,7 +147,31 @@ class TransformerViewController: UIViewController,UICollectionViewDataSource,UIT
     
     @objc func collectionViewCellDeleteButtonPressed(sender: UIButton){
         print("Delete button press")
+        let transformerId = (self.transformerDataModelArray.object(at: sender.tag) as! TransformerDataModel).id
+        TransformerNetworkAPI().deleteTransformer(transformerId: transformerId! as NSString, completion: { (result:ResultType) in
+            switch result
+            {
+            case .Success(let rst):
+                print("successful in deletion- vc %@", rst)
+                DispatchQueue.main.async{
+                    self.transformerDataModelArray.removeObject(at: sender.tag)
+                    self.autobotCollectionView.reloadData()
+                    let alert = UIAlertController(title: CONSTANT_ALERT_SUCCESS_TITLE_STRING, message: CONSTANT_ALERT_DELETE_SUCCESS_MESSAGE_STRING, preferredStyle: UIAlertController.Style.alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(alert, animated: false, completion: nil)
+                }
+                break
+            case .Error(let e):
+                print("Error", e)
+                DispatchQueue.main.async{
+                    let alert = UIAlertController(title: "TransformerApp", message: e.localizedDescription, preferredStyle: UIAlertController.Style.alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(alert, animated: false, completion: nil)
+                }
+            }
+        })
     }
+    
     @objc func collectionViewCellEditButtonPressed(sender: UIButton){
         print("Edit button press")
         self.currentIndexPath = IndexPath(row: sender.tag, section: 0)
@@ -168,7 +192,7 @@ class TransformerViewController: UIViewController,UICollectionViewDataSource,UIT
         if(!self.isCellEditing!) {
             //changes are to be saved/updated
             var uneditedTransformerDataModel = TransformerDataModel()
-            var updatedTransformerDataModel = TransformerDataModel()
+            let updatedTransformerDataModel = TransformerDataModel()
             uneditedTransformerDataModel = self.transformerDataModelArray.object(at: self.currentIndexPath!.row) as! TransformerDataModel
             updatedTransformerDataModel.id = uneditedTransformerDataModel.id
             updatedTransformerDataModel.name = selectedCell.nameTextField.text

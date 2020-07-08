@@ -126,6 +126,30 @@ class TransformerNetworkAPI: NSObject {
         
     }
     
+    func deleteTransformer(transformerId:NSString, completion: @escaping (ResultType) -> Void) {
+        let jwt = retrieveJwt()
+        let jwtForHeader = "Bearer "+(jwt as String)
+        let request = NSMutableURLRequest(url: URL(string: CONSTANT_URL+"/\(transformerId)")!)
+        request.httpMethod = "DELETE"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue(jwtForHeader, forHTTPHeaderField: "Authorization")
+        let task = URLSession.shared.dataTask(with: request as URLRequest) {(data, response, error) in
+            guard let httpResponse = response,
+                error == nil else {
+                    completion(ResultType.Error(error: error!))
+                    return
+            }
+                if ((httpResponse as! HTTPURLResponse).statusCode == 204) {
+                    completion(.Success(result: "Success"))
+                }
+                else {
+                    let error: NSError = NSError(domain: "com.transformers.deletetransformer", code: (httpResponse as! HTTPURLResponse).statusCode, userInfo: ["Error reason": "Unexpected error"])
+                   completion(ResultType.Error(error: error))
+            }
+        }
+        task.resume()
+    }
+    
     func retrieveJwt() -> NSString {
         let credentials = URLCredentialStorage.shared.credentials(for: self.jwtProtectionSpace!)
         return (credentials![""]?.password! as NSString?)!
