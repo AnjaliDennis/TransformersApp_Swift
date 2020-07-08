@@ -198,7 +198,7 @@
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="startTransformerBattle:" destination="9Cb-wt-zR2" eventType="touchUpInside" id="8c8-oN-mnr"/>
+                                    <action selector="startTransformerBattle:" destination="9Cb-wt-zR2" eventType="touchUpInside" id="3Pd-LD-y1H"/>
                                 </connections>
                             </button>
                         </subviews>
