@@ -87,15 +87,15 @@ class TransformerViewController: UIViewController,UICollectionViewDataSource,UIT
         cell.firepowerLabel.text = CONSTANT_FIREPOWER_STRING+transformerDataModel.firepower!
         cell.skillSlider.value = (transformerDataModel.skill! as NSString).floatValue
         cell.skillLabel.text = CONSTANT_SKILL_STRING+transformerDataModel.skill!
-        cell.ratingValueLabel.text = transformerDataModel.rating;
+        cell.ratingValueLabel.text = transformerDataModel.rating
         let imageData = NSData(contentsOf: URL(string: transformerDataModel.team_icon!)!)
         cell.teamIconImagView.image = UIImage(data: imageData! as Data)
         cell.backgroundColor = (transformerDataModel.team == CONSTANT_TEAM_AUTOBOT_STRING) ?  UIColor.init(named: "AutobotColor") : UIColor.init(named: "DecepticonColor")
-        cell.deleteTransformerButton.tag = indexPath.row;
+        cell.deleteTransformerButton.tag = indexPath.row
         cell.deleteTransformerButton.addTarget(self, action: #selector(collectionViewCellDeleteButtonPressed(sender:)), for: .touchUpInside)
-        cell.editTransformerButton.tag = indexPath.row;
+        cell.editTransformerButton.tag = indexPath.row
         cell.editTransformerButton.addTarget(self, action: #selector(collectionViewCellEditButtonPressed(sender:)), for: .touchUpInside)
-        self.currentIndexPath = indexPath;
+        self.currentIndexPath = indexPath
         cell.strengthSlider.addTarget(self, action: #selector(sliderValueChange(sender:)), for: .touchUpInside)
         cell.intelligenceSlider.addTarget(self, action: #selector(sliderValueChange(sender:)), for: .touchUpInside)
         cell.speedSlider.addTarget(self, action: #selector(sliderValueChange(sender:)), for: .touchUpInside)
@@ -104,16 +104,16 @@ class TransformerViewController: UIViewController,UICollectionViewDataSource,UIT
         cell.courageSlider.addTarget(self, action: #selector(sliderValueChange(sender:)), for: .touchUpInside)
         cell.firepowerSlider.addTarget(self, action: #selector(sliderValueChange(sender:)), for: .touchUpInside)
         cell.skillSlider.addTarget(self, action: #selector(sliderValueChange(sender:)), for: .touchUpInside)
-        cell.nameTextField.isUserInteractionEnabled = false;
-        cell.teamValueSegmentedControl.isUserInteractionEnabled = false;
-        cell.strengthSlider.isUserInteractionEnabled = false;
-        cell.intelligenceSlider.isUserInteractionEnabled = false;
-        cell.speedSlider.isUserInteractionEnabled = false;
-        cell.enduranceSlider.isUserInteractionEnabled = false;
-        cell.rankSlider.isUserInteractionEnabled = false;
-        cell.courageSlider.isUserInteractionEnabled = false;
-        cell.firepowerSlider.isUserInteractionEnabled = false;
-        cell.skillSlider.isUserInteractionEnabled = false;
+        cell.nameTextField.isUserInteractionEnabled = false
+        cell.teamValueSegmentedControl.isUserInteractionEnabled = false
+        cell.strengthSlider.isUserInteractionEnabled = false
+        cell.intelligenceSlider.isUserInteractionEnabled = false
+        cell.speedSlider.isUserInteractionEnabled = false
+        cell.enduranceSlider.isUserInteractionEnabled = false
+        cell.rankSlider.isUserInteractionEnabled = false
+        cell.courageSlider.isUserInteractionEnabled = false
+        cell.firepowerSlider.isUserInteractionEnabled = false
+        cell.skillSlider.isUserInteractionEnabled = false
         
         return cell
     }
@@ -215,6 +215,7 @@ class TransformerViewController: UIViewController,UICollectionViewDataSource,UIT
                 {
                 case .Success(let rst):
                     print("successful in updation- vc %@", rst)
+                    (rst as! TransformerDataModel).rating = "\(overallRating)"
                     self.transformerDataModelArray.replaceObject(at: self.currentIndexPath!.row, with: rst as! TransformerDataModel)
                     DispatchQueue.main.async{
                         self.autobotCollectionView.reloadData()
@@ -284,7 +285,12 @@ class TransformerViewController: UIViewController,UICollectionViewDataSource,UIT
                 if (((rst as! TransformerDataModelArray).transformers! as NSArray).count != 0 ) {
                     if let tempArray: [TransformerDataModel] = ((rst as! TransformerDataModelArray).transformers! as [TransformerDataModel]) {
                         self.transformerDataModelArray.removeAllObjects()
-                        self.transformerDataModelArray.addObjects(from: tempArray)
+                        for transformerDataModelItem in tempArray {
+                            let overallRating = (transformerDataModelItem.strength! as NSString).integerValue + (transformerDataModelItem.intelligence! as NSString).integerValue + (transformerDataModelItem.speed! as NSString).integerValue + (transformerDataModelItem.endurance! as NSString).integerValue + (transformerDataModelItem.firepower! as NSString).integerValue
+                            transformerDataModelItem.rating = "\(overallRating)"
+                            self.transformerDataModelArray.add(transformerDataModelItem)
+                        }
+                       // self.transformerDataModelArray.addObjects(from: tempArray)
                         DispatchQueue.main.async{
                             self.autobotCollectionView.reloadData()
                         }
@@ -308,8 +314,8 @@ class TransformerViewController: UIViewController,UICollectionViewDataSource,UIT
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "segueToBattlefieldScreen") {
-            //            let destVC = segue.destination as! BattlefieldTransformerViewController
-            //            destVC.transformerDataModelArray = self.transformerDataModelArray
+            let destVC = segue.destination as! BattlefieldTransformerViewController
+            destVC.transformerDataModelArray = self.transformerDataModelArray
         }
     }
     

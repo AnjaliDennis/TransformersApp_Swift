@@ -11,7 +11,7 @@
         <!--Battlefield-->
         <scene sceneID="8pv-4v-o5Q">
             <objects>
-                <viewController id="9Cb-wt-zR2" customClass="BattlefieldTransformerViewController" sceneMemberID="viewController">
+                <viewController id="9Cb-wt-zR2" customClass="BattlefieldTransformerViewController" customModule="TransformersAppSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="buW-HV-wLm">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -21,7 +21,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <color key="separatorColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" alpha="0.5" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="BattlefieldTransformerTableViewCellReuseIdentifier" rowHeight="243" id="RKR-sg-w7I" customClass="BattlefieldTransformerTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" alpha="0.5" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="BattlefieldTransformerTableViewCellReuseIdentifier" rowHeight="243" id="RKR-sg-w7I" customClass="BattlefieldTransformerTableViewCell" customModule="TransformersAppSwift" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="355" height="243"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="RKR-sg-w7I" id="kdc-ya-1So">
@@ -152,18 +152,18 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
-                                            <outlet property="autobotNameLabel" destination="OCL-Zc-Z3B" id="x6z-eo-hON"/>
-                                            <outlet property="autobotRankLabel" destination="8hc-Hw-KIV" id="C5S-wu-L1h"/>
-                                            <outlet property="autobotRatingLabel" destination="1qU-k3-EBm" id="f0e-ks-ekB"/>
-                                            <outlet property="autobotResultLabel" destination="597-eq-YxO" id="gUm-4I-Is3"/>
-                                            <outlet property="autobotStatsLabel" destination="C0r-0q-3AI" id="tW5-gB-ztZ"/>
-                                            <outlet property="autobotTeamIcon" destination="W4C-e0-mB5" id="3HQ-Bd-Uc4"/>
-                                            <outlet property="decepticonNameLabel" destination="FCB-dX-skC" id="guM-g8-A0j"/>
-                                            <outlet property="decepticonRankLabel" destination="AQF-wY-ylG" id="fmZ-nE-jR5"/>
-                                            <outlet property="decepticonRatingLabel" destination="he5-xj-DNW" id="pHd-Mj-GJy"/>
-                                            <outlet property="decepticonResultLabel" destination="8YU-lB-b7e" id="zgR-dt-jng"/>
-                                            <outlet property="decepticonStatsLabel" destination="Des-by-atu" id="Hyl-DI-JpY"/>
-                                            <outlet property="decepticonTeamIcon" destination="3bJ-Rm-voI" id="Fj3-4S-B9Y"/>
+                                            <outlet property="autobotNameLabel" destination="OCL-Zc-Z3B" id="dfv-Nm-klL"/>
+                                            <outlet property="autobotRankLabel" destination="8hc-Hw-KIV" id="G9M-0P-nFA"/>
+                                            <outlet property="autobotRatingLabel" destination="1qU-k3-EBm" id="1z7-39-nDf"/>
+                                            <outlet property="autobotResultLabel" destination="597-eq-YxO" id="QWb-b1-Ob0"/>
+                                            <outlet property="autobotStatsLabel" destination="C0r-0q-3AI" id="OR4-93-K3i"/>
+                                            <outlet property="autobotTeamIcon" destination="W4C-e0-mB5" id="PGS-7M-mN8"/>
+                                            <outlet property="decepticonNameLabel" destination="FCB-dX-skC" id="tFT-mc-rpC"/>
+                                            <outlet property="decepticonRankLabel" destination="AQF-wY-ylG" id="gz7-9p-qxd"/>
+                                            <outlet property="decepticonRatingLabel" destination="he5-xj-DNW" id="qSE-Sz-rHJ"/>
+                                            <outlet property="decepticonResultLabel" destination="8YU-lB-b7e" id="bHN-aG-Mwv"/>
+                                            <outlet property="decepticonStatsLabel" destination="Des-by-atu" id="UsW-5e-b0B"/>
+                                            <outlet property="decepticonTeamIcon" destination="3bJ-Rm-voI" id="EfB-rf-haB"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -224,9 +224,9 @@
                     <tabBarItem key="tabBarItem" title="Battlefield" id="7MT-1T-qDv" userLabel="Battlefield"/>
                     <navigationItem key="navigationItem" id="cx1-aJ-Hha"/>
                     <connections>
-                        <outlet property="battlefieldBannerLabel" destination="av6-gi-uMH" id="HQo-hk-mZc"/>
-                        <outlet property="startBattleButton" destination="ckc-Ee-Jik" id="jsi-7n-BYb"/>
-                        <outlet property="transformerBattleTableView" destination="2PJ-8p-TXx" id="AK1-kr-pFo"/>
+                        <outlet property="battlefieldBannerLabel" destination="av6-gi-uMH" id="m78-Z4-U0n"/>
+                        <outlet property="startBattleButton" destination="ckc-Ee-Jik" id="ny8-A2-TYU"/>
+                        <outlet property="transformerBattleTableView" destination="2PJ-8p-TXx" id="W44-PL-dWZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xvf-co-f63" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

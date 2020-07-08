@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		4E253DC624B49314003E72A1 /* CreateTransformerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E253DC524B49314003E72A1 /* CreateTransformerViewController.swift */; };
+		4E282E8124B5B8200039630F /* BattlefieldTransformerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E282E8024B5B8200039630F /* BattlefieldTransformerViewController.swift */; };
+		4E282E8324B5C1690039630F /* BattlefieldTransformerTableViewDatasourceAndDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E282E8224B5C1690039630F /* BattlefieldTransformerTableViewDatasourceAndDelegate.swift */; };
 		4E57436924B36A8300396792 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E57436824B36A8300396792 /* AppDelegate.swift */; };
 		4E57436B24B36A8300396792 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E57436A24B36A8300396792 /* SceneDelegate.swift */; };
 		4E57436D24B36A8300396792 /* TransformerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E57436C24B36A8300396792 /* TransformerViewController.swift */; };
@@ -40,6 +42,8 @@
 
 /* Begin PBXFileReference section */
 		4E253DC524B49314003E72A1 /* CreateTransformerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTransformerViewController.swift; sourceTree = "<group>"; };
+		4E282E8024B5B8200039630F /* BattlefieldTransformerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattlefieldTransformerViewController.swift; sourceTree = "<group>"; };
+		4E282E8224B5C1690039630F /* BattlefieldTransformerTableViewDatasourceAndDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattlefieldTransformerTableViewDatasourceAndDelegate.swift; sourceTree = "<group>"; };
 		4E57436524B36A8300396792 /* TransformersAppSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TransformersAppSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E57436824B36A8300396792 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4E57436A24B36A8300396792 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -152,6 +156,8 @@
 			children = (
 				4E57436C24B36A8300396792 /* TransformerViewController.swift */,
 				4E253DC524B49314003E72A1 /* CreateTransformerViewController.swift */,
+				4E282E8024B5B8200039630F /* BattlefieldTransformerViewController.swift */,
+				4E282E8224B5C1690039630F /* BattlefieldTransformerTableViewDatasourceAndDelegate.swift */,
 			);
 			path = PresentationLayer;
 			sourceTree = "<group>";
@@ -303,6 +309,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E282E8324B5C1690039630F /* BattlefieldTransformerTableViewDatasourceAndDelegate.swift in Sources */,
 				4E253DC624B49314003E72A1 /* CreateTransformerViewController.swift in Sources */,
 				4E57436D24B36A8300396792 /* TransformerViewController.swift in Sources */,
 				4E57436924B36A8300396792 /* AppDelegate.swift in Sources */,
@@ -310,6 +317,7 @@
 				4E57436B24B36A8300396792 /* SceneDelegate.swift in Sources */,
 				4E57439C24B36E8B00396792 /* TransformerDataModel.swift in Sources */,
 				4E5743A524B3715B00396792 /* TransformerConstants.swift in Sources */,
+				4E282E8124B5B8200039630F /* BattlefieldTransformerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
