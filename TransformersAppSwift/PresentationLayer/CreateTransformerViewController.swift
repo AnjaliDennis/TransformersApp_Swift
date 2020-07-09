@@ -130,7 +130,6 @@ class CreateTransformerViewController: UIViewController,UITextFieldDelegate {
     func resetToDefaultUIValues() {
         self.transformerNameTextField.text = ""
         let defaultSliderValue: Int = 5
-        //Int defaultSliderValue = 5
         self.strengthSlider.value = Float(defaultSliderValue)
         self.intelligenceSlider.value = Float(defaultSliderValue)
         self.speedSlider.value = Float(defaultSliderValue)
@@ -147,6 +146,7 @@ class CreateTransformerViewController: UIViewController,UITextFieldDelegate {
         self.courageLabel.text = "\(defaultSliderValue)"
         self.firepowerLabel.text = "\(defaultSliderValue)"
         self.skillLabel.text = "\(defaultSliderValue)"
+        self.transformerTeamType.selectedSegmentIndex = 0
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

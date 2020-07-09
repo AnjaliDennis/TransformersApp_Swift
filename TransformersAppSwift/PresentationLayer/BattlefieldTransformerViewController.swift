@@ -173,7 +173,6 @@ class BattlefieldTransformerViewController: UIViewController {
         self.isBattleComplete = true
         self.dataSource!.isBattleComplete = true
         self.startBattleButton.isHidden = self.isBattleComplete!
-        //NSLog(@"a: %d b: %d", battlesWonByAutobots, battleWonByDecepticons);
         if (totalBattles == 0) {
             self.battlefieldBannerLabel.text = CONSTANT_BATTLE_INSUFFICIENT_STRING;
         }

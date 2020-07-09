@@ -37,7 +37,6 @@ class TransformerViewController: UIViewController,UICollectionViewDataSource,UIT
     
     @IBOutlet weak var autobotCollectionView: UICollectionView!
     var transformerDataModelArray: NSMutableArray = [TransformerDataModel()]
-    //var transformerDataModelArray: NSMutableArray = [TransformerDataModel]()
     var currentIndexPath: IndexPath?
     var isCellEditing: Bool?
     var isRefreshed: Bool?
@@ -68,9 +67,9 @@ class TransformerViewController: UIViewController,UICollectionViewDataSource,UIT
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TransformerCollectionViewCellReuseIdentifier", for: indexPath) as! TransformerCollectionViewCell
         let transformerDataModel: TransformerDataModel = self.transformerDataModelArray.object(at: indexPath.row) as! TransformerDataModel
         
-        cell.nameTextField.text = transformerDataModel.name;
-        cell.nameTextField.delegate = self;
-        cell.teamValueSegmentedControl.selectedSegmentIndex = (transformerDataModel.team == CONSTANT_AUTOBOT_STRING) ? 0 : 1
+        cell.nameTextField.text = transformerDataModel.name
+        cell.nameTextField.delegate = self
+        cell.teamValueSegmentedControl.selectedSegmentIndex = (transformerDataModel.team == CONSTANT_TEAM_AUTOBOT_STRING) ? 0 : 1
         cell.strengthSlider.value = (transformerDataModel.strength! as NSString).floatValue
         cell.strengthLabel.text = CONSTANT_STRENGTH_STRING+transformerDataModel.strength!
         cell.intelligenceSlider.value = (transformerDataModel.intelligence! as NSString).floatValue
@@ -173,7 +172,7 @@ class TransformerViewController: UIViewController,UICollectionViewDataSource,UIT
     }
     
     @objc func collectionViewCellEditButtonPressed(sender: UIButton){
-        print("Edit button press")
+        //print("Edit button press")
         self.currentIndexPath = IndexPath(row: sender.tag, section: 0)
         let selectedCell: TransformerCollectionViewCell = self.autobotCollectionView.cellForItem(at: self.currentIndexPath!) as! TransformerCollectionViewCell
         self.isCellEditing = !self.isCellEditing!
@@ -188,6 +187,8 @@ class TransformerViewController: UIViewController,UICollectionViewDataSource,UIT
         selectedCell.firepowerSlider.isUserInteractionEnabled = self.isCellEditing!
         selectedCell.skillSlider.isUserInteractionEnabled = self.isCellEditing!
         selectedCell.editTransformerButton.setTitle(((self.isCellEditing!) ? CONSTANT_SAVE_BUTTON : CONSTANT_EDIT_BUTTON_OK), for: .normal)
+        //delete button disabled when edit is in progress
+        selectedCell.deleteTransformerButton.isUserInteractionEnabled = !self.isCellEditing!
         self.autobotCollectionView.isScrollEnabled = !self.isCellEditing!
         if(!self.isCellEditing!) {
             //changes are to be saved/updated
@@ -311,14 +312,33 @@ class TransformerViewController: UIViewController,UICollectionViewDataSource,UIT
         self.performSegue(withIdentifier: "segueToCreateTransformerScreen", sender: sender)
     }
     
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
         if (segue.identifier == "segueToBattlefieldScreen") {
+            if (battlefieldReadiness()) {
             let destVC = segue.destination as! BattlefieldTransformerViewController
             destVC.transformerDataModelArray = self.transformerDataModelArray
+            }
+            else {
+                let alert = UIAlertController(title: "TransformersApp", message: "Please add more transformers to start battle", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: false, completion: nil)
+                return
+            }
         }
     }
     
-    
+    func battlefieldReadiness() -> Bool  {
+        if self.transformerDataModelArray.count > 0 {
+            let autobotResult = self.transformerDataModelArray.filter {($0 as! TransformerDataModel).team!.contains("A")}
+            let decepticonResult = self.transformerDataModelArray.filter {($0 as! TransformerDataModel).team!.contains("D")}
+            print("a: \(autobotResult.count) d: \(decepticonResult.count)")
+            if autobotResult.count == 0 || decepticonResult.count == 0 {
+                return false
+            }
+            return true
+        }
+        return false
+    }
 }
 
