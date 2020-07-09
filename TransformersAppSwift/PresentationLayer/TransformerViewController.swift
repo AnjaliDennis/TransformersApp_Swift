@@ -122,36 +122,33 @@ class TransformerViewController: UIViewController,UICollectionViewDataSource,UIT
         return true
     }
     
-    
     // MARK: - Web service call
     func getAuthenticationToken () {
         TransformerNetworkAPI().getToken(completion: { (result:ResultType) in
             switch result
             {
-            case .Success(let rst):
-                print("successful in vc %@", rst)
+            case .Success( _):
                 if (UserDefaults.standard.bool(forKey: CONSTANT_REFRESH)) {
                     self.refreshTransformerList([])
                 }
                 
             case .Error(let e):
-                print("Error", e)
-                let alert = UIAlertController(title: "TransformerApp", message: e.localizedDescription, preferredStyle: UIAlertController.Style.alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                self.present(alert, animated: false, completion: nil)
+                DispatchQueue.main.async{
+                    print("Error", e)
+                    let alert = UIAlertController(title: "TransformerApp", message: e.localizedDescription, preferredStyle: UIAlertController.Style.alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(alert, animated: false, completion: nil)
+                }
             }
         })
     }
     
-    
     @objc func collectionViewCellDeleteButtonPressed(sender: UIButton){
-        print("Delete button press")
         let transformerId = (self.transformerDataModelArray.object(at: sender.tag) as! TransformerDataModel).id
         TransformerNetworkAPI().deleteTransformer(transformerId: transformerId! as NSString, completion: { (result:ResultType) in
             switch result
             {
-            case .Success(let rst):
-                print("successful in deletion- vc %@", rst)
+            case .Success( _):
                 DispatchQueue.main.async{
                     self.transformerDataModelArray.removeObject(at: sender.tag)
                     self.autobotCollectionView.reloadData()
@@ -161,7 +158,6 @@ class TransformerViewController: UIViewController,UICollectionViewDataSource,UIT
                 }
                 break
             case .Error(let e):
-                print("Error", e)
                 DispatchQueue.main.async{
                     let alert = UIAlertController(title: "TransformerApp", message: e.localizedDescription, preferredStyle: UIAlertController.Style.alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
@@ -172,7 +168,6 @@ class TransformerViewController: UIViewController,UICollectionViewDataSource,UIT
     }
     
     @objc func collectionViewCellEditButtonPressed(sender: UIButton){
-        //print("Edit button press")
         self.currentIndexPath = IndexPath(row: sender.tag, section: 0)
         let selectedCell: TransformerCollectionViewCell = self.autobotCollectionView.cellForItem(at: self.currentIndexPath!) as! TransformerCollectionViewCell
         self.isCellEditing = !self.isCellEditing!
@@ -215,7 +210,6 @@ class TransformerViewController: UIViewController,UICollectionViewDataSource,UIT
                 switch result
                 {
                 case .Success(let rst):
-                    print("successful in updation- vc %@", rst)
                     (rst as! TransformerDataModel).rating = "\(overallRating)"
                     self.transformerDataModelArray.replaceObject(at: self.currentIndexPath!.row, with: rst as! TransformerDataModel)
                     DispatchQueue.main.async{
@@ -226,16 +220,80 @@ class TransformerViewController: UIViewController,UICollectionViewDataSource,UIT
                     }
                     break
                 case .Error(let e):
-                    print("Error", e)
-                    let alert = UIAlertController(title: "TransformerApp", message: e.localizedDescription, preferredStyle: UIAlertController.Style.alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                    self.present(alert, animated: false, completion: nil)
+                    DispatchQueue.main.async{
+                        let alert = UIAlertController(title: "TransformerApp", message: e.localizedDescription, preferredStyle: UIAlertController.Style.alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                        self.present(alert, animated: false, completion: nil)
+                    }
                 }
             })
         }
     }
+    
+    @IBAction func refreshTransformerList(_ sender: Any) {
+        TransformerNetworkAPI().getTransformerList(completion: { (result:ResultType) in
+            switch result
+            {
+            case .Success(let rst):
+                print("successful in vc %@", rst)
+                if (((rst as! TransformerDataModelArray).transformers! as NSArray).count != 0 ) {
+                    if let tempArray: [TransformerDataModel] = ((rst as! TransformerDataModelArray).transformers! as [TransformerDataModel]) {
+                        self.transformerDataModelArray.removeAllObjects()
+                        for transformerDataModelItem in tempArray {
+                            let overallRating = (transformerDataModelItem.strength! as NSString).integerValue + (transformerDataModelItem.intelligence! as NSString).integerValue + (transformerDataModelItem.speed! as NSString).integerValue + (transformerDataModelItem.endurance! as NSString).integerValue + (transformerDataModelItem.firepower! as NSString).integerValue
+                            transformerDataModelItem.rating = "\(overallRating)"
+                            self.transformerDataModelArray.add(transformerDataModelItem)
+                        }
+                        DispatchQueue.main.async{
+                            self.autobotCollectionView.reloadData()
+                        }
+                    }
+                }
+                
+            case .Error(let e):
+                DispatchQueue.main.async{
+                    let alert = UIAlertController(title: "TransformerApp", message: e.localizedDescription, preferredStyle: UIAlertController.Style.alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(alert, animated: false, completion: nil)
+                }
+            }
+        })
+    }
+    
+    @IBAction func createButtonSelected(_ sender: Any) {
+        self.performSegue(withIdentifier: "segueToCreateTransformerScreen", sender: sender)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "segueToBattlefieldScreen") {
+            if (battlefieldReadiness()) {
+            let destVC = segue.destination as! BattlefieldTransformerViewController
+            destVC.transformerDataModelArray = self.transformerDataModelArray
+            }
+            else {
+                let alert = UIAlertController(title: "TransformersApp", message: "Please add more transformers to start battle", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: false, completion: nil)
+                return
+            }
+        }
+    }
+    
+    func battlefieldReadiness() -> Bool  {
+        if self.transformerDataModelArray.count > 0 {
+            let autobotResult = self.transformerDataModelArray.filter {($0 as! TransformerDataModel).team!.contains("A")}
+            let decepticonResult = self.transformerDataModelArray.filter {($0 as! TransformerDataModel).team!.contains("D")}
+            print("a: \(autobotResult.count) d: \(decepticonResult.count)")
+            if autobotResult.count == 0 || decepticonResult.count == 0 {
+                return false
+            }
+            return true
+        }
+        return false
+    }
+    
+    // MARK: - Slider Delegate
     @objc func sliderValueChange(sender: UISlider){
-        print("Slider action")
         let selectedCell: TransformerCollectionViewCell = self.autobotCollectionView.cellForItem(at: self.currentIndexPath!) as! TransformerCollectionViewCell
          
          switch (sender.tag) {
@@ -275,70 +333,6 @@ class TransformerViewController: UIViewController,UICollectionViewDataSource,UIT
                  break;
          }
          
-    }
-    
-    @IBAction func refreshTransformerList(_ sender: Any) {
-        TransformerNetworkAPI().getTransformerList(completion: { (result:ResultType) in
-            switch result
-            {
-            case .Success(let rst):
-                print("successful in vc %@", rst)
-                if (((rst as! TransformerDataModelArray).transformers! as NSArray).count != 0 ) {
-                    if let tempArray: [TransformerDataModel] = ((rst as! TransformerDataModelArray).transformers! as [TransformerDataModel]) {
-                        self.transformerDataModelArray.removeAllObjects()
-                        for transformerDataModelItem in tempArray {
-                            let overallRating = (transformerDataModelItem.strength! as NSString).integerValue + (transformerDataModelItem.intelligence! as NSString).integerValue + (transformerDataModelItem.speed! as NSString).integerValue + (transformerDataModelItem.endurance! as NSString).integerValue + (transformerDataModelItem.firepower! as NSString).integerValue
-                            transformerDataModelItem.rating = "\(overallRating)"
-                            self.transformerDataModelArray.add(transformerDataModelItem)
-                        }
-                       // self.transformerDataModelArray.addObjects(from: tempArray)
-                        DispatchQueue.main.async{
-                            self.autobotCollectionView.reloadData()
-                        }
-                    }
-                    
-                }
-                
-            case .Error(let e):
-                print("Error", e)
-                let alert = UIAlertController(title: "TransformerApp", message: e.localizedDescription, preferredStyle: UIAlertController.Style.alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                self.present(alert, animated: false, completion: nil)
-            }
-        })
-    }
-    
-    @IBAction func createButtonSelected(_ sender: Any) {
-        self.performSegue(withIdentifier: "segueToCreateTransformerScreen", sender: sender)
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        if (segue.identifier == "segueToBattlefieldScreen") {
-            if (battlefieldReadiness()) {
-            let destVC = segue.destination as! BattlefieldTransformerViewController
-            destVC.transformerDataModelArray = self.transformerDataModelArray
-            }
-            else {
-                let alert = UIAlertController(title: "TransformersApp", message: "Please add more transformers to start battle", preferredStyle: UIAlertController.Style.alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                self.present(alert, animated: false, completion: nil)
-                return
-            }
-        }
-    }
-    
-    func battlefieldReadiness() -> Bool  {
-        if self.transformerDataModelArray.count > 0 {
-            let autobotResult = self.transformerDataModelArray.filter {($0 as! TransformerDataModel).team!.contains("A")}
-            let decepticonResult = self.transformerDataModelArray.filter {($0 as! TransformerDataModel).team!.contains("D")}
-            print("a: \(autobotResult.count) d: \(decepticonResult.count)")
-            if autobotResult.count == 0 || decepticonResult.count == 0 {
-                return false
-            }
-            return true
-        }
-        return false
     }
 }
 

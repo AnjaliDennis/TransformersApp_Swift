@@ -37,6 +37,7 @@ class CreateTransformerViewController: UIViewController,UITextFieldDelegate {
         // Do any additional setup after loading the view.
     }
     
+    // MARK: - Slider Delegate
     @IBAction func sliderValueChange(_ sender: UISlider) {
         switch (sender.tag) {
         case 0:
@@ -84,28 +85,23 @@ class CreateTransformerViewController: UIViewController,UITextFieldDelegate {
             TransformerNetworkAPI().createTransformer(requestBody: self.requestBodyDataModel!, completion: { (result:ResultType) in
                 switch result
                 {
-                case .Success(let rst):
-                    print("successful in create vc %@", rst)
-                    
+                case .Success( _):
                     UserDefaults.standard.set(true, forKey: CONSTANT_REFRESH)
                     DispatchQueue.main.async{
-                    self.resetToDefaultUIValues()
-                    let alert = UIAlertController(title: CONSTANT_ALERT_SUCCESS_TITLE_STRING, message: CONSTANT_ALERT_CREATE_SUCCESS_MESSAGE_STRING, preferredStyle: UIAlertController.Style.alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                    self.present(alert, animated: false, completion: nil)
+                        self.resetToDefaultUIValues()
+                        let alert = UIAlertController(title: CONSTANT_ALERT_SUCCESS_TITLE_STRING, message: CONSTANT_ALERT_CREATE_SUCCESS_MESSAGE_STRING, preferredStyle: UIAlertController.Style.alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                        self.present(alert, animated: false, completion: nil)
                     }
                     break
                 case .Error(let e):
-                    print("Error", e)
-                    let alert = UIAlertController(title: "TransformerApp", message: e.localizedDescription, preferredStyle: UIAlertController.Style.alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                    self.present(alert, animated: false, completion: nil)
+                    DispatchQueue.main.async{
+                        let alert = UIAlertController(title: "TransformerApp", message: e.localizedDescription, preferredStyle: UIAlertController.Style.alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                        self.present(alert, animated: false, completion: nil)
+                    }
                 }
-                
             })
-            
-            
-            
         }
     }
     
@@ -149,6 +145,7 @@ class CreateTransformerViewController: UIViewController,UITextFieldDelegate {
         self.transformerTeamType.selectedSegmentIndex = 0
     }
     
+    // MARK: - UITextFieldDelegate
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.transformerNameTextField.resignFirstResponder()
         return true
