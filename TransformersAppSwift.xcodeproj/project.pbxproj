@@ -17,7 +17,6 @@
 		4E57437024B36A8300396792 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E57436E24B36A8300396792 /* Main.storyboard */; };
 		4E57437224B36A8600396792 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E57437124B36A8600396792 /* Assets.xcassets */; };
 		4E57437524B36A8600396792 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E57437324B36A8600396792 /* LaunchScreen.storyboard */; };
-		4E57438024B36A8600396792 /* TransformersAppSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E57437F24B36A8600396792 /* TransformersAppSwiftTests.swift */; };
 		4E57438B24B36A8600396792 /* TransformersAppSwiftUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E57438A24B36A8600396792 /* TransformersAppSwiftUITests.swift */; };
 		4E57439C24B36E8B00396792 /* TransformerDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E57439B24B36E8B00396792 /* TransformerDataModel.swift */; };
 		4E57439E24B3706D00396792 /* TransformerNetworkAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E57439D24B3706D00396792 /* TransformerNetworkAPI.swift */; };
@@ -58,7 +57,6 @@
 		4E57437424B36A8600396792 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4E57437624B36A8600396792 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4E57437B24B36A8600396792 /* TransformersAppSwiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TransformersAppSwiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		4E57437F24B36A8600396792 /* TransformersAppSwiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformersAppSwiftTests.swift; sourceTree = "<group>"; };
 		4E57438124B36A8600396792 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4E57438624B36A8600396792 /* TransformersAppSwiftUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TransformersAppSwiftUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E57438A24B36A8600396792 /* TransformersAppSwiftUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformersAppSwiftUITests.swift; sourceTree = "<group>"; };
@@ -136,7 +134,6 @@
 		4E57437E24B36A8600396792 /* TransformersAppSwiftTests */ = {
 			isa = PBXGroup;
 			children = (
-				4E57437F24B36A8600396792 /* TransformersAppSwiftTests.swift */,
 				4E57438124B36A8600396792 /* Info.plist */,
 				4E09F1E224B7A52C00DF7EA6 /* TransformerViewControllerTests.swift */,
 				4E61B45524B8F0E100755408 /* CreateTransformerViewControllerTests.swift */,
@@ -340,7 +337,6 @@
 				4E09F1E524B7A57400DF7EA6 /* TransformerViewControllerTests.swift in Sources */,
 				4E61B45624B8F0E100755408 /* CreateTransformerViewControllerTests.swift in Sources */,
 				4E61B45C24BA01C500755408 /* TransformerNetworkAPITests.swift in Sources */,
-				4E57438024B36A8600396792 /* TransformersAppSwiftTests.swift in Sources */,
 				4E61B45A24B8F95000755408 /* BattlefieldTransformerViewControllerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

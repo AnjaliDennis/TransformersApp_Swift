@@ -147,7 +147,7 @@ class CreateTransformerViewController: UIViewController,UITextFieldDelegate {
     
     // MARK: - UITextFieldDelegate
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.transformerNameTextField.resignFirstResponder()
+        textField.resignFirstResponder()
         return true
     }
 }

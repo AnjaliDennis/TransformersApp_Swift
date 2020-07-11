@@ -822,11 +822,15 @@
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hSa-sl-efr" userLabel="Name Text Field">
                                 <rect key="frame" x="92.5" y="57.5" width="240" height="34"/>
+                                <accessibility key="accessibilityConfiguration" identifier="nameTextField"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="240" id="mWq-Ag-7Ns"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="4mi-RE-LvX" id="8c4-ta-aEd"/>
+                                </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xjC-Sc-Axf">
                                 <rect key="frame" x="160" y="629" width="55" height="33"/>
