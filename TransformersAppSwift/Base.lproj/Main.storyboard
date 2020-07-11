@@ -11,7 +11,7 @@
         <!--Battlefield-->
         <scene sceneID="8pv-4v-o5Q">
             <objects>
-                <viewController id="9Cb-wt-zR2" customClass="BattlefieldTransformerViewController" customModule="TransformersAppSwift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="battlefieldViewController" id="9Cb-wt-zR2" customClass="BattlefieldTransformerViewController" customModule="TransformersAppSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="buW-HV-wLm">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -555,7 +555,7 @@
         <!--Create Transformer-->
         <scene sceneID="1gC-MK-vq7">
             <objects>
-                <viewController id="4mi-RE-LvX" userLabel="Create Transformer" customClass="CreateTransformerViewController" customModule="TransformersAppSwift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="createTransformerViewController" id="4mi-RE-LvX" userLabel="Create Transformer" customClass="CreateTransformerViewController" customModule="TransformersAppSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="SUO-r6-2Xk">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

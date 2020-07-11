@@ -79,9 +79,12 @@ class BattlefieldTransformerViewController: UIViewController {
                 }
                 return ComparisonResult.orderedSame
             }
-            for transformerDataModelItem in sortedMainArray! {
-                ((transformerDataModelItem as! TransformerDataModel).team == CONSTANT_TEAM_AUTOBOT_STRING) ?  self.dataSource?.sortedAutobotsDataModelArray.add(transformerDataModelItem) : self.dataSource?.sortedDecepticonsDataModelArray.add(transformerDataModelItem)
-            }
+            
+            let autobotResult = sortedMainArray!.filter {($0 as! TransformerDataModel).team!.contains("A")}
+            let decepticonResult = sortedMainArray!.filter {($0 as! TransformerDataModel).team!.contains("D")}
+            self.dataSource?.sortedAutobotsDataModelArray.addObjects(from: autobotResult)
+            self.dataSource?.sortedDecepticonsDataModelArray.addObjects(from: decepticonResult)
+
             self.isSorted = true
             self.transformerBattleTableView.reloadData()
         }
